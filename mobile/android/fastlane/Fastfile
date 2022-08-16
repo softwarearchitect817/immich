@@ -1,0 +1,40 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Build Android"
+  lane :build do
+    gradle(
+      task: 'bundle', 
+      build_type: 'Release',
+    )
+  end
+
+  desc "Build and Release Android"
+  lane :release do
+    gradle(
+      task: 'bundle', 
+      build_type: 'Release',
+      properties: {
+        "android.injected.version.code" => 33,
+        "android.injected.version.name" => "1.23.0",
+      }
+    )
+    upload_to_play_store(skip_upload_apk: true, skip_upload_images: true, skip_upload_screenshots: true, aab: '../build/app/outputs/bundle/release/app-release.aab')
+  end
+
+end

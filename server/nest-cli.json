@@ -1,0 +1,55 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/immich/src",
+  "monorepo": true,
+  "root": "apps/immich",
+  "compilerOptions": {
+    "webpack": false,
+    "tsConfigPath": "apps/immich/tsconfig.app.json",
+    "plugins": [  {
+      "name": "@nestjs/swagger",
+      "options": {
+        "classValidatorShim": false,
+        "introspectComments": true
+      }
+    }]
+  },
+  "projects": {
+    "immich": {
+      "type": "application",
+      "root": "apps/immich",
+      "entryFile": "main",
+      "sourceRoot": "apps/immich/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/immich/tsconfig.app.json"
+      }
+    },
+    "microservices": {
+      "type": "application",
+      "root": "apps/microservices",
+      "entryFile": "main",
+      "sourceRoot": "apps/microservices/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/microservices/tsconfig.app.json"
+      }
+    },
+    "database": {
+      "type": "library",
+      "root": "libs/database",
+      "entryFile": "index",
+      "sourceRoot": "libs/database/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
+      }
+    },
+    "job": {
+      "type": "library",
+      "root": "libs/job",
+      "entryFile": "index",
+      "sourceRoot": "libs/job/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/job/tsconfig.lib.json"
+      }
+    }
+  }
+}
